@@ -1,18 +1,21 @@
 import { TypingAnimation } from "@/components/magicui/typing-animation";
+import { Globe } from "@/components/magicui/globe";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
+
       {/* Hero */}
-      <section className="mx-auto max-w-7xl px-6 pt-12 md:pt-20 pb-12 md:pb-16">
+      <section className="relative mx-auto max-w-7xl px-6 pt-12 md:pt-20 pb-12 md:pb-16">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(163,230,53,0.08),transparent_60%)]"></div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7">
             <TypingAnimation className="text-4xl md:text-6xl font-extrabold tracking-tight" duration={40}>
               KALE-Cult
             </TypingAnimation>
-            <p className="mt-5 text-lg md:text-xl text-neutral-300 max-w-2xl">
+            <TypingAnimation className="mt-5 text-lg md:text-xl text-neutral-300 max-w-2xl" duration={20} delay={400}>
               Cultivating not just farms, but impact — stake, work, and harvest for a meaningful purpose.
-            </p>
+            </TypingAnimation>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <a href="#get-started" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-6 py-3 font-medium hover:opacity-90">
                 Get Started
@@ -34,8 +37,8 @@ export default function Home() {
                   <div className="mt-1 text-xl font-semibold">#FARM-2024</div>
                 </div>
                 <div className="rounded-xl bg-neutral-900/80 p-4 border border-neutral-800">
-                  <div className="text-neutral-400">PiCore ID</div>
-                  <div className="mt-1 text-xl font-semibold">#PC-7890</div>
+                  <div className="text-neutral-400">SAT-data ID</div>
+                  <div className="mt-1 text-xl font-semibold">#SC-7890</div>
                 </div>
                 <div className="rounded-xl bg-neutral-900/80 p-4 border border-neutral-800">
                   <div className="text-neutral-400">Farm Health</div>
@@ -53,6 +56,7 @@ export default function Home() {
                   Stake
                 </button>
               </div>
+              <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-gradient-to-br from-lime-400 to-yellow-300 opacity-20 blur-2xl"></div>
             </div>
           </div>
         </div>
@@ -68,17 +72,32 @@ export default function Home() {
               Lock your KALE tokens to join the cultivation process and actively participate in our collaborative farming ecosystem.
             </p>
           </div>
-          <div className="rounded-2xl border border-neutral-800 p-6 bg-neutral-950">
+          <div className="relative rounded-2xl border border-neutral-800 p-6 bg-neutral-950 overflow-hidden">
+            <div className="absolute -bottom-10 -left-10 h-24 w-24 rounded-full bg-gradient-to-br from-yellow-300 to-lime-400 opacity-15 blur-xl"></div>
             <h3 className="text-lg font-semibold text-lime-300">Contribute & Work</h3>
             <p className="mt-2 text-neutral-300 text-sm">
               Complete tasks and proofs of work to grow your share of rewards, while supporting sustainable farming initiatives.
             </p>
           </div>
-          <div className="rounded-2xl border border-neutral-800 p-6 bg-neutral-950">
+          <div className="relative rounded-2xl border border-neutral-800 p-6 bg-neutral-950 overflow-hidden">
+            <div className="absolute top-1/2 right-6 -translate-y-1/2 h-20 w-20 rounded-full bg-gradient-to-br from-lime-300 to-yellow-200 opacity-15 blur-xl"></div>
             <h3 className="text-lg font-semibold text-lime-300">Harvest Real Impact</h3>
             <p className="mt-2 text-neutral-300 text-sm">
               Turn your staking and contributions into meaningful outcomes — promoting sustainable farming, community growth, and verifiable impact.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Globe Section */}
+      <section className="relative mx-auto max-w-6xl px-6 py-8 md:py-12">
+        <div className="text-center">
+          <h3 className="text-2xl md:text-3xl font-semibold">Creating real impact all around the world</h3>
+          <p className="mt-2 text-neutral-300">with one cultivation at a time as a cult</p>
+        </div>
+        <div className="relative mt-10 flex items-center justify-center">
+          <div className="relative aspect-square w-full max-w-[560px]">
+            <Globe />
           </div>
         </div>
       </section>

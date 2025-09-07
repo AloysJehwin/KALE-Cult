@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { TypingAnimation } from "@/components/magicui/typing-animation";
 import Link from "next/link";
 import { FARMS, type FarmSummary } from "@/data/farms";
@@ -39,6 +39,17 @@ export default function StakePage() {
   const [sort, setSort] = useState("apy-desc");
   const [status, setStatus] = useState<string>("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+
+  // Load recent activity
+  useEffect(() => {
+    const key = "kalecult_stakes";
+    const existing = typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
+    if (existing) {
+      const allStakes = JSON.parse(existing) as any[];
+      setRecentActivity(allStakes.slice(0, 10)); // Show last 10 transactions
+    }
+  }, []);
 
   const farms = useMemo(() => {
     let list = [...FARMS];
@@ -75,6 +86,44 @@ export default function StakePage() {
           Turning real-time farm data into smart investments - where crops grow, profits flow, and Web3 complexity stays out of sight!
         </p>
       </section>
+
+      {/* Recent Network Activity */}
+      {recentActivity.length > 0 && (
+        <section className="mx-auto max-w-7xl px-6 mb-8">
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 backdrop-blur p-5">
+            <h3 className="text-lg font-semibold mb-4 text-lime-400">Live Network Activity</h3>
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              {recentActivity.map((tx) => (
+                <div key={tx.id} className="flex-shrink-0 p-3 rounded-lg bg-neutral-950 border border-neutral-800 min-w-[200px]">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs px-2 py-1 rounded-full bg-lime-900/20 text-lime-400 border border-lime-900/40">
+                      Staked
+                    </span>
+                    <span className="text-xs text-neutral-500">
+                      {new Date(tx.timestamp).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <div className="text-sm font-medium">{tx.amount} XLM</div>
+                  <div className="text-xs text-neutral-500 mt-1">{tx.farmId}</div>
+                  {tx.transactionHash && (
+                    <a 
+                      href={`https://stellar.expert/explorer/testnet/tx/${tx.transactionHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-lime-400 hover:underline mt-2 inline-block"
+                    >
+                      Verify →
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 pt-3 border-t border-neutral-800 text-xs text-neutral-500">
+              Total Network Stakes: {recentActivity.reduce((sum, tx) => sum + tx.amount, 0).toLocaleString()} XLM across {recentActivity.length} transactions
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Sort/Filter Panel */}
       <section className="mx-auto max-w-7xl px-6 mb-15 mpb-6">
@@ -120,9 +169,19 @@ export default function StakePage() {
       {/* Farms Grid */}
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {farms.map((farm) => (
-            <div key={farm.farmId} className="rounded-2xl border border-neutral-800 bg-neutral-950 p-5">
-              <div className="flex items-start justify-between">
+          {farms.map((farm, index) => (
+            <div key={farm.farmId} className="rounded-2xl border border-neutral-800 bg-neutral-950 p-5 relative">
+              {index !== 0 && (
+                <>
+                  <div className="absolute inset-0 backdrop-blur-md bg-neutral-950/70 rounded-2xl z-10 pointer-events-none" />
+                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                    <span className="text-white font-semibold text-lg bg-neutral-900/95 backdrop-blur-sm px-5 py-2.5 rounded-full border border-neutral-600 shadow-lg">
+                      Coming Soon
+                    </span>
+                  </div>
+                </>
+              )}
+              <div className={`flex items-start justify-between ${index !== 0 ? 'opacity-30' : ''}`}>
                 <div>
                   <div className="text-sm text-neutral-400">Farm ID</div>
                   <div className="font-semibold">{farm.farmId}</div>
@@ -131,7 +190,7 @@ export default function StakePage() {
                   {farm.status}
                 </span>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+              <div className={`mt-4 grid grid-cols-2 gap-3 text-sm ${index !== 0 ? 'opacity-30' : ''}`}>
                 <div>
                   <div className="text-neutral-400">SAT-data ID</div>
                   <div className="font-medium">{farm.satDataId}</div>
@@ -145,22 +204,23 @@ export default function StakePage() {
                   <div className="font-medium">{farm.health}</div>
                 </div>
               </div>
-              <div className="mt-5 flex items-center gap-3">
+              <div className={`mt-5 flex items-center gap-3 ${index !== 0 ? 'opacity-30' : ''}`}>
                 <button
-                  className="inline-flex items-center rounded-full border border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-900"
-                  onClick={() => setExpandedId(expandedId === farm.farmId ? null : farm.farmId)}
+                  className={`inline-flex items-center rounded-full border border-neutral-800 px-4 py-2 text-sm ${index === 0 ? 'hover:bg-neutral-900' : 'cursor-not-allowed'}`}
+                  onClick={() => index === 0 && setExpandedId(expandedId === farm.farmId ? null : farm.farmId)}
+                  disabled={index !== 0}
                 >
                   More Details
                 </button>
                 <Link
                   href={`/stake-done?farmId=${encodeURIComponent(farm.farmId)}`}
-                  className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold ${farm.status === "Available" ? "bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 hover:opacity-90" : "bg-neutral-800 text-neutral-400 cursor-not-allowed"}`}
-                  aria-disabled={farm.status !== "Available"}
+                  className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold ${index === 0 && farm.status === "Available" ? "bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 hover:opacity-90" : "bg-neutral-800 text-neutral-400 cursor-not-allowed"}`}
+                  aria-disabled={index !== 0 || farm.status !== "Available"}
                   onClick={(e) => {
-                    if (farm.status !== "Available") e.preventDefault();
+                    if (index !== 0 || farm.status !== "Available") e.preventDefault();
                   }}
                 >
-                  Stake
+                  {index === 0 ? 'Stake' : 'Coming Soon'}
                 </Link>
               </div>
             </div>

@@ -41,7 +41,7 @@ export default function StakeDonePage() {
   const farmId = search.get("farmId");
   const farm: FarmSummary | undefined = FARMS.find((f) => f.farmId === farmId) || FARMS[0];
 
-  const [token, setToken] = useState("KALE");
+  const [token, setToken] = useState("XLM");
   const [amount, setAmount] = useState<number>(1000);
   const [duration, setDuration] = useState<string>("6m");
 
@@ -52,6 +52,33 @@ export default function StakeDonePage() {
     const est = amount * monthlyRate * months;
     return est;
   }, [amount, months, farm]);
+
+  const handleFinish = () => {
+    if (!farm) return;
+    try {
+      const key = "kalecult_stakes";
+      const existing = typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
+      const arr = existing ? (JSON.parse(existing) as any[]) : [];
+      const record = {
+        id: `${farm.farmId}-${Date.now()}`,
+        farmId: farm.farmId,
+        satDataId: farm.satDataId,
+        apy: farm.apy,
+        maxYieldPct: farm.maxYieldPct,
+        health: farm.health,
+        token,
+        amount,
+        duration,
+        estimatedReturn,
+        timestamp: new Date().toISOString(),
+      };
+      arr.unshift(record);
+      window.localStorage.setItem(key, JSON.stringify(arr));
+      router.push("/profile");
+    } catch (e) {
+      router.push("/profile");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
@@ -152,7 +179,7 @@ export default function StakeDonePage() {
               >
                 Back to Farms
               </button>
-              <button className="inline-flex items-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-5 py-2 text-sm font-semibold hover:opacity-90">
+              <button onClick={handleFinish} className="inline-flex items-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-5 py-2 text-sm font-semibold hover:opacity-90">
                 Finish Staking
               </button>
             </div>

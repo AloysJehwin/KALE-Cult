@@ -1,0 +1,27 @@
+"use client";
+
+import Link from "next/link";
+
+export default function Navbar() {
+  return (
+    <div className="fixed inset-x-0 top-4 z-40 flex justify-center px-4">
+      <div className="backdrop-blur supports-[backdrop-filter]:bg-neutral-900/40 bg-neutral-900/90 dark:bg-neutral-900/90 text-white border border-neutral-800 shadow-lg rounded-full px-4 py-2 w-full max-w-3xl flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8 rounded-md bg-gradient-to-br from-lime-400 to-yellow-300 text-neutral-900 flex items-center justify-center font-extrabold tracking-tight">KC</div>
+          <span className="hidden sm:inline text-sm font-semibold">KALE-C</span>
+        </div>
+        <nav className="hidden md:flex items-center gap-6 text-sm text-neutral-200">
+          <Link className="hover:text-white" href="#stake">Stake</Link>
+          <Link className="hover:text-white" href="#work">Work</Link>
+          <Link className="hover:text-white" href="#impact">Impact</Link>
+          <Link className="hover:text-white" href="#about">About</Link>
+        </nav>
+        <div className="flex items-center gap-2">
+          <button className="inline-flex items-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-4 py-1.5 text-sm font-semibold hover:opacity-90">
+            Connect
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

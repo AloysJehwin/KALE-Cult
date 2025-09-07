@@ -109,8 +109,7 @@ export default function StakeDonePage() {
                 onChange={(e) => setToken(e.target.value)}
                 className="mt-1 w-full rounded-lg bg-neutral-950 border border-neutral-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-lime-400/40"
               >
-                <option value="KALE">KALE</option>
-                <option value="USDC">USDC</option>
+                <option value="XLM">XLM</option>
               </select>
             </div>
             <div className="mt-4">
@@ -143,7 +142,7 @@ export default function StakeDonePage() {
             </div>
             <div className="mt-6 rounded-xl border border-neutral-800 p-3 bg-neutral-950">
               <div className="text-sm text-neutral-400">Estimated Return</div>
-              <div className="mt-1 text-2xl font-semibold text-lime-300">{estimatedReturn.toLocaleString(undefined, { maximumFractionDigits: 2 })} {token}</div>
+              <div className="mt-1 text-2xl font-semibold text-lime-300">{estimatedReturn.toLocaleString(undefined, { maximumFractionDigits: 2 })} XLM</div>
               <div className="text-xs text-neutral-500">Based on {farm.apy}% APY over {months} months. This is an estimate.</div>
             </div>
             <div className="mt-6 flex items-center justify-between">

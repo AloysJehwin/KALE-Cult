@@ -1,0 +1,50 @@
+{
+  "name": "kale-contracts",
+  "version": "1.0.0",
+  "description": "KALE Smart Contracts - Proof-of-Work Farming Protocol on Stellar",
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "deploy:testnet": "./scripts/deploy.sh testnet default",
+    "deploy:mainnet": "./scripts/deploy.sh mainnet default",
+    "plant": "./scripts/interact.sh plant",
+    "work": "./scripts/interact.sh work",
+    "harvest": "./scripts/interact.sh harvest",
+    "balance": "./scripts/interact.sh balance",
+    "info": "./scripts/interact.sh info"
+  },
+  "keywords": [
+    "stellar",
+    "soroban",
+    "smart-contracts",
+    "blockchain",
+    "proof-of-work",
+    "farming",
+    "defi",
+    "kale"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/kale-contracts"
+  },
+  "author": "KALE Protocol",
+  "license": "MIT",
+  "contract": {
+    "testnet": {
+      "id": "CAAMNOJE35WNHCQ5ENHGFCT4ANIH6345IQJLARWNLB5OKRBF7ZGQJ7Q7",
+      "network": "testnet",
+      "explorer": "https://stellar.expert/explorer/testnet/contract/CAAMNOJE35WNHCQ5ENHGFCT4ANIH6345IQJLARWNLB5OKRBF7ZGQJ7Q7"
+    },
+    "mainnet": {
+      "id": "",
+      "network": "mainnet",
+      "explorer": ""
+    }
+  },
+  "constants": {
+    "blockInterval": 300,
+    "blockReward": "25050000000",
+    "blocksPerMonth": 8640,
+    "decayRate": 0.05,
+    "stroopsPerKale": 10000000
+  }
+}

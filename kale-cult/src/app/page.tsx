@@ -6,11 +6,12 @@ export default function Home() {
     <div className="min-h-screen bg-neutral-950 text-white">
 
       {/* Hero */}
-      <section className="relative mx-auto max-w-7xl px-6 pt-12 md:pt-20 pb-12 md:pb-16">
+      <section className="relative mx-auto max-w-7xl px-6 pt-25 md:pt-20 pb-12 md:pb-16">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(163,230,53,0.08),transparent_60%)]"></div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-7">
-            <TypingAnimation className="text-4xl md:text-6xl font-extrabold tracking-tight" duration={40}>
+          <div className="relative lg:col-span-7">
+            <div className="pointer-events-none absolute -inset-x-10 -top-10 h-40 rounded-full blur-3xl opacity-25 bg-gradient-to-r from-lime-400/60 to-yellow-300/60"></div>
+            <TypingAnimation className="text-5xl md:text-7xl font-extrabold tracking-tight" duration={40}>
               KALE-Cult
             </TypingAnimation>
             <TypingAnimation className="mt-5 text-lg md:text-xl text-neutral-300 max-w-2xl" duration={20} delay={400}>
@@ -63,7 +64,7 @@ export default function Home() {
       </section>
 
       {/* Key Features */}
-      <section className="mx-auto max-w-7xl px-6 py-12 md:py-16" id="features">
+      <section className="mx-auto max-w-7xl px-6 py-5 md:py-16" id="features">
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Key Features</h2>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="rounded-2xl border border-neutral-800 p-6 bg-neutral-950">

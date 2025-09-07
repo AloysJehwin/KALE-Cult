@@ -17,7 +17,7 @@ export default function Home() {
               Cultivating not just farms, but impact — stake, work, and harvest for a meaningful purpose.
             </TypingAnimation>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <a href="#get-started" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-6 py-3 font-medium hover:opacity-90">
+              <a href="/stake" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-6 py-3 font-medium hover:opacity-90">
                 Get Started
               </a>
               <a href="#learn-more" className="inline-flex items-center justify-center rounded-full border border-neutral-800 px-6 py-3 font-medium hover:bg-neutral-900">
@@ -52,9 +52,9 @@ export default function Home() {
                     <div className="h-2 w-3/4 rounded-full bg-gradient-to-r from-lime-400 to-yellow-300"></div>
                   </div>
                 </div>
-                <button className="inline-flex items-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-5 py-2 text-sm font-medium hover:opacity-90">
+                <a href="/stake" className="inline-flex items-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-5 py-2 text-sm font-medium hover:opacity-90">
                   Stake
-                </button>
+                </a>
               </div>
               <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-gradient-to-br from-lime-400 to-yellow-300 opacity-20 blur-2xl"></div>
             </div>
@@ -109,7 +109,7 @@ export default function Home() {
             <h3 className="text-xl md:text-2xl font-semibold">Does this look like an opportunity?</h3>
             <p className="mt-2 text-neutral-300">Get real-time insights and analytics to make informed staking decisions.</p>
           </div>
-          <a href="#get-started" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-6 py-3 font-medium hover:opacity-90">
+          <a href="/stake" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-lime-400 to-yellow-300 text-neutral-900 px-6 py-3 font-medium hover:opacity-90">
             Get Started
           </a>
         </div>

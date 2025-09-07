@@ -86,10 +86,7 @@ All staking transactions are sent to:
 - [Get Test XLM](https://laboratory.stellar.org/#account-creator?network=test)
 - [Freighter Wallet](https://www.freighter.app/)
 
-## License
-
-MIT
 
 ---
 
-Built with 🌱 by KALE-CULT Team | Powered by Stellar Network
+Built with 🌱 by KALE-CULT Ooviya and Aloys Jehwin

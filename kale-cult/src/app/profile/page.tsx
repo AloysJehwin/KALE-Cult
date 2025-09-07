@@ -44,7 +44,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
-      <section className="mx-auto max-w-7xl px-6 pt-16 md:pt-24 pb-8 text-center">
+      <section className="mx-auto max-w-7xl px-6 pt-16 md:pt-10 pb-8 text-center">
         <TypingAnimation className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-lime-400 to-yellow-300 bg-clip-text text-transparent" duration={35}>
           Your Profile
         </TypingAnimation>
@@ -53,7 +53,7 @@ export default function ProfilePage() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-16">
+      <section className="mx-auto max-w-7xl px-6 mt-8 pb-16">
         {/* Wallet + Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 backdrop-blur p-5">

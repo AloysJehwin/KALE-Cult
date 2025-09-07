@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KALE-CULT 🌱
 
-## Getting Started
+A decentralized agricultural staking platform built on Stellar blockchain, connecting real-world farming with DeFi yields.
 
-First, run the development server:
+## Overview
+
+KALE-CULT bridges traditional agriculture with blockchain technology by allowing users to stake XLM tokens on real farm fields, earning yields based on actual agricultural performance data tracked via satellite monitoring.
+
+## Features
+
+### Core Functionality
+- **Farm Staking**: Stake XLM on verified agricultural fields
+- **Freighter Wallet Integration**: Seamless Web3 connectivity
+- **Real-time Tracking**: Monitor staking positions and yields
+- **Transparent Transactions**: All stakes verifiable on Stellar blockchain
+
+### Smart Contract
+- **Contract ID**: `CAAMNOJE35WNHCQ5ENHGFCT4ANIH6345IQJLARWNLB5OKRBF7ZGQJ7Q7`
+- **Network**: Stellar Testnet (Soroban)
+- **Block Interval**: 5 minutes
+- **Block Reward**: 2505 KALE
+- **Monthly Decay**: 5%
+
+## How It Works
+
+1. **Connect Wallet**: Link your Freighter wallet to the platform
+2. **Select Farm**: Choose from available agricultural fields
+3. **Stake XLM**: Send XLM to the farmer's address to participate
+4. **Earn Yields**: Receive KALE rewards based on farm performance
+5. **Track Progress**: Monitor your stakes and returns in real-time
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Blockchain**: Stellar Network, Soroban Smart Contracts
+- **Wallet**: Freighter Browser Extension
+- **Styling**: Tailwind CSS
+- **APIs**: KALE-API-Core for contract integration
+
+## Installation
 
 ```bash
+# Clone repository
+git clone https://github.com/yourusername/KALE-Cult.git
+cd KALE-Cult
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configuration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Install [Freighter Wallet](https://www.freighter.app/)
+2. Switch to Stellar Testnet
+3. Get test XLM from [Stellar Laboratory](https://laboratory.stellar.org/#account-creator?network=test)
+4. Connect wallet and start staking
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Smart Contract Functions
 
-## Learn More
+### Core Methods
+- `plant()` - Stake tokens in farming pool
+- `work()` - Submit proof-of-work for mining
+- `harvest()` - Claim accumulated rewards
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+├── src/
+│   ├── app/          # Next.js pages
+│   ├── components/   # React components
+│   ├── contexts/     # Wallet context
+│   └── lib/          # Stellar/KALE integration
+├── kale-api-core/    # Smart contract API library
+└── public/           # Static assets
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Farmer Address
+All staking transactions are sent to:
+`GD664UTMLQ2BQCUWXILU4NJLHWSDYV6IUMJZZCD7F3H7VNHY3CO7KUT2`
 
-## Deploy on Vercel
+## Links
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [View Contract on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CAAMNOJE35WNHCQ5ENHGFCT4ANIH6345IQJLARWNLB5OKRBF7ZGQJ7Q7)
+- [Get Test XLM](https://laboratory.stellar.org/#account-creator?network=test)
+- [Freighter Wallet](https://www.freighter.app/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
+
+---
+
+Built with 🌱 by KALE-CULT Team | Powered by Stellar Network

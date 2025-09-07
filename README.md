@@ -1,10 +1,6 @@
-# KALE-CULT 🌱
+# KALE-CULT 
 
 A decentralized agricultural staking platform built on Stellar blockchain, connecting real-world farming with DeFi yields.
-
-## Overview
-
-KALE-CULT bridges traditional agriculture with blockchain technology by allowing users to stake XLM tokens on real farm fields, earning yields based on actual agricultural performance data tracked via satellite monitoring.
 
 ## Features
 

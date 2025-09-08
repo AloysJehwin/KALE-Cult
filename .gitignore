@@ -42,3 +42,5 @@ next-env.d.ts
 
 #kale files
 /kale-api-core 
+
+lambda_farm_metrics.py

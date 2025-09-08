@@ -40,6 +40,9 @@ export default function StakePage() {
   const [status, setStatus] = useState<string>("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [liveMetrics, setLiveMetrics] = useState<any>(null);
+  const [metricsLoading, setMetricsLoading] = useState(false);
+  const [metricsError, setMetricsError] = useState<string | null>(null);
 
   // Load recent activity
   useEffect(() => {
@@ -50,6 +53,29 @@ export default function StakePage() {
       setRecentActivity(allStakes.slice(0, 10)); // Show last 10 transactions
     }
   }, []);
+
+  // Fetch live metrics when a farm is expanded
+  useEffect(() => {
+    if (expandedId) {
+      fetchLiveMetrics();
+    }
+  }, [expandedId]);
+
+  const fetchLiveMetrics = async () => {
+    setMetricsLoading(true);
+    setMetricsError(null);
+    try {
+      const response = await fetch('https://jyea3qhvg2.execute-api.us-east-1.amazonaws.com/default/KALE-Cult-Farm-DB');
+      if (!response.ok) throw new Error('Failed to fetch metrics');
+      const data = await response.json();
+      setLiveMetrics(data);
+    } catch (error) {
+      setMetricsError('Unable to fetch live metrics');
+      console.error('Error fetching live metrics:', error);
+    } finally {
+      setMetricsLoading(false);
+    }
+  };
 
   const farms = useMemo(() => {
     let list = [...FARMS];
@@ -263,6 +289,130 @@ export default function StakePage() {
                           <div className="font-medium">{farm.health}</div>
                         </div>
                       </div>
+                      
+                      {/* Live Metrics Section */}
+                      {metricsLoading && (
+                        <div className="mt-6 p-4 rounded-lg bg-neutral-900/50 border border-neutral-800">
+                          <div className="animate-pulse">
+                            <div className="h-4 bg-neutral-800 rounded w-1/4 mb-3"></div>
+                            <div className="grid grid-cols-3 gap-3">
+                              <div className="h-8 bg-neutral-800 rounded"></div>
+                              <div className="h-8 bg-neutral-800 rounded"></div>
+                              <div className="h-8 bg-neutral-800 rounded"></div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {liveMetrics && !metricsLoading && (
+                        <div className="mt-6 space-y-4">
+                          {/* Environmental Conditions */}
+                          <div className="p-4 rounded-lg bg-neutral-900/50 border border-neutral-800">
+                            <h4 className="text-sm font-semibold text-lime-400 mb-3">🌡️ Live Environmental Data</h4>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                              <div>
+                                <div className="text-xs text-neutral-500">Temperature</div>
+                                <div className="text-lg font-medium">{liveMetrics.environmental_conditions?.air_temperature}°C</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Humidity</div>
+                                <div className="text-lg font-medium">{liveMetrics.environmental_conditions?.humidity}%</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Solar Radiation</div>
+                                <div className="text-lg font-medium">{liveMetrics.environmental_conditions?.solar_radiation} W/m²</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Wind Speed</div>
+                                <div className="text-lg font-medium">{liveMetrics.environmental_conditions?.wind_speed} km/h</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Rainfall (24h)</div>
+                                <div className="text-lg font-medium">{liveMetrics.environmental_conditions?.rainfall_24h} mm</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Soil Metrics */}
+                          <div className="p-4 rounded-lg bg-neutral-900/50 border border-neutral-800">
+                            <h4 className="text-sm font-semibold text-lime-400 mb-3">🌱 Soil Health Metrics</h4>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                              <div>
+                                <div className="text-xs text-neutral-500">Moisture</div>
+                                <div className="text-lg font-medium">{liveMetrics.soil_metrics?.moisture}%</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">pH Level</div>
+                                <div className="text-lg font-medium">{liveMetrics.soil_metrics?.ph}</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Temperature</div>
+                                <div className="text-lg font-medium">{liveMetrics.soil_metrics?.temperature}°C</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Nitrogen</div>
+                                <div className="text-lg font-medium">{liveMetrics.soil_metrics?.nutrients?.nitrogen} ppm</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Phosphorus</div>
+                                <div className="text-lg font-medium">{liveMetrics.soil_metrics?.nutrients?.phosphorus} ppm</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Potassium</div>
+                                <div className="text-lg font-medium">{liveMetrics.soil_metrics?.nutrients?.potassium} ppm</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Crop Health */}
+                          <div className="p-4 rounded-lg bg-neutral-900/50 border border-neutral-800">
+                            <h4 className="text-sm font-semibold text-lime-400 mb-3">🌾 Crop Performance</h4>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                              <div>
+                                <div className="text-xs text-neutral-500">NDVI Index</div>
+                                <div className="text-lg font-medium text-lime-300">{liveMetrics.crop_health?.ndvi_index}</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Growth Stage</div>
+                                <div className="text-sm font-medium">{liveMetrics.crop_health?.growth_stage}</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Est. Yield</div>
+                                <div className="text-lg font-medium">{liveMetrics.crop_health?.estimated_yield} t/ha</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Days to Harvest</div>
+                                <div className="text-lg font-medium">{liveMetrics.productivity?.days_to_harvest}</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Field Efficiency</div>
+                                <div className="text-lg font-medium">{liveMetrics.productivity?.field_efficiency_score}%</div>
+                              </div>
+                              <div>
+                                <div className="text-xs text-neutral-500">Pest Risk</div>
+                                <div className={`text-sm font-medium ${liveMetrics.risk_assessment?.pest_risk_level === 'Low' ? 'text-lime-400' : liveMetrics.risk_assessment?.pest_risk_level === 'Medium' ? 'text-yellow-400' : 'text-red-400'}`}>
+                                  {liveMetrics.risk_assessment?.pest_risk_level}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Alerts */}
+                          {liveMetrics.alerts && liveMetrics.alerts.length > 0 && (
+                            <div className="p-4 rounded-lg bg-neutral-900/50 border border-neutral-800">
+                              <h4 className="text-sm font-semibold text-lime-400 mb-3">⚠️ Active Alerts</h4>
+                              <div className="space-y-2">
+                                {liveMetrics.alerts.map((alert: any, idx: number) => (
+                                  <div key={idx} className={`text-sm p-2 rounded ${alert.type === 'warning' ? 'bg-yellow-900/20 text-yellow-300' : alert.type === 'danger' ? 'bg-red-900/20 text-red-300' : alert.type === 'success' ? 'bg-lime-900/20 text-lime-300' : 'bg-blue-900/20 text-blue-300'}`}>
+                                    {alert.message}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       <div className="mt-6">
                         <div className="text-sm text-neutral-400">Growth / Yield Trend</div>
                         <LineChart series={farm.history} className="mt-2 w-full" />
